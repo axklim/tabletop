@@ -1,0 +1,258 @@
+/* Wireframe sketch system */
+:root {
+  --paper: #f5f0e6;
+  --paper-2: #efe8d8;
+  --ink: #2b2722;
+  --ink-soft: #5a544c;
+  --ink-faint: #a8a094;
+  --accent: #c2553a;
+  --accent-soft: #e2a995;
+  --rule: #2b272233;
+  --grid: #2b272211;
+}
+
+[data-mode="night"] {
+  --paper: #1a1814;
+  --paper-2: #221f1a;
+  --ink: #ece4d2;
+  --ink-soft: #b6ad99;
+  --ink-faint: #6a6356;
+  --rule: #ece4d233;
+  --grid: #ece4d211;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(0,0,0,0.04), transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(0,0,0,0.04), transparent 60%);
+}
+
+body[data-grid="on"] {
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(0,0,0,0.04), transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(0,0,0,0.04), transparent 60%),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: auto, auto, 24px 24px, 24px 24px;
+}
+
+.page {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 56px 48px 120px;
+}
+
+.masthead {
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 18px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  row-gap: 16px;
+}
+.masthead > div:first-child { flex: 1 1 360px; min-width: 0; }
+.masthead .meta { flex: 0 1 auto; }
+@media (max-width: 1080px) {
+  .masthead h1 { font-size: 44px; }
+}
+@media (max-width: 720px) {
+  .masthead h1 { font-size: 36px; }
+  .masthead .meta { text-align: left; }
+}
+
+.masthead h1 {
+  font-family: 'Caveat', cursive;
+  font-size: 56px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.5px;
+}
+
+.masthead .subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.masthead .meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+.masthead .meta div { margin-bottom: 3px; }
+
+.intro {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  line-height: 1.35;
+  max-width: 760px;
+  color: var(--ink);
+  margin-bottom: 48px;
+}
+.intro .accent { color: var(--accent); font-weight: 700; }
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+@media (max-width: 1080px) {
+  .grid-cards { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--paper-2);
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  padding: 22px 22px 18px;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.card-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.card-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+}
+.card-title {
+  font-family: 'Caveat', cursive;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+.card-tagline {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.card-svg-wrap {
+  background: var(--paper);
+  border: 1px dashed var(--ink-soft);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+.card-svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.card-views {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.card-view[data-kind="plan"] .card-svg-wrap::before,
+.card-view[data-kind="iso"] .card-svg-wrap::before {
+  content: attr(data-tag);
+  position: absolute;
+  top: 6px; left: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  letter-spacing: 0.1em;
+}
+body[data-view="plan"] .card-view[data-kind="iso"] { display: none; }
+body[data-view="iso"] .card-view[data-kind="plan"] { display: none; }
+body[data-view="plan"] .card-views,
+body[data-view="iso"] .card-views { grid-template-columns: 1fr; }
+.card-notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.card-notes b {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.card-notes .key { color: var(--accent); }
+
+/* SVG ink styles */
+.ink { stroke: var(--ink); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.ink-soft { stroke: var(--ink-soft); fill: none; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.ink-faint { stroke: var(--ink-faint); fill: none; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 3 3; }
+.fill-paper { fill: var(--paper); }
+.fill-paper-2 { fill: var(--paper-2); }
+.accent { stroke: var(--accent); }
+.accent-fill { fill: var(--accent); }
+.accent-soft-fill { fill: var(--accent-soft); opacity: 0.55; }
+.label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  fill: var(--ink-soft);
+  letter-spacing: 0.06em;
+}
+.label-accent { fill: var(--accent); font-weight: 600; }
+.handwritten {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  fill: var(--ink);
+}
+
+[data-annotations="off"] .annotation { display: none; }
+
+/* hatching pattern via repeating gradient applied through SVG patterns instead */
+
+.footer-note {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--ink-soft);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Squiggle underline */
+.squiggle {
+  display: inline-block;
+  position: relative;
+}
+.squiggle::after {
+  content: "";
+  position: absolute;
+  left: -2px; right: -2px; bottom: -6px;
+  height: 6px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 6'><path d='M0 3 Q5 0 10 3 T20 3 T30 3 T40 3' fill='none' stroke='%23c2553a' stroke-width='1.5'/></svg>") repeat-x;
+}

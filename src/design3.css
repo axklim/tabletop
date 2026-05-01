@@ -1,0 +1,83 @@
+/* Design 03 page-specific layout */
+.study {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+.study-block {
+  background: var(--paper-2);
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  padding: 16px;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.block-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.study-block.plan-only { grid-column: span 6; }
+.study-block.spec-block { grid-column: span 6; }
+
+@media (max-width: 1080px) {
+  .study-block.plan-only,
+  .study-block.spec-block { grid-column: span 6; }
+}
+
+.subvariants {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.subv {
+  border: 1px dashed var(--ink-soft);
+  border-radius: 4px;
+  padding: 10px;
+  background: var(--paper);
+}
+.subv svg { display: block; width: 100%; height: auto; }
+.subv-cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.subv-cap.accent-text { color: var(--accent); }
+.subv-note {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.spec {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 32px;
+}
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--ink-faint);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink);
+}
+.spec-row b {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+.spec-row span { text-align: right; }
+@media (max-width: 720px) {
+  .spec { grid-template-columns: 1fr; }
+}
